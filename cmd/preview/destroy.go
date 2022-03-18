@@ -15,7 +15,6 @@ package preview
 
 import (
 	"context"
-	"fmt"
 
 	contextCMD "github.com/okteto/okteto/cmd/context"
 	"github.com/okteto/okteto/cmd/utils"
@@ -69,9 +68,10 @@ func executeDestroyPreview(ctx context.Context, name string) error {
 		return err
 	}
 	if err := oktetoClient.DestroyPreview(ctx, name); err != nil {
-		return fmt.Errorf("failed to destroy preview environment: %s", err)
+		oktetoLog.Information("failed to destroy preview environment: %s", err)
+	} else {
+		oktetoLog.Success("Preview environment destroyed")
 	}
 
-	oktetoLog.Success("Preview environment destroyed")
 	return nil
 }
